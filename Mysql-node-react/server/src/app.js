@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require("express");
-const path = require('path');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const db = require("./src/modal");
+const db = require("./modal");
+
+//creates the table if it doesn't exist (and does nothing if it already exists)
 db.sequelize.sync();
 
 const app = express();
@@ -17,8 +18,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(
     cookieSession({
         signed: false,
